@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { IProduct } from './product';
 
 @Component({
     selector: 'pm-products',
     templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.css']
 })
 
-export class ProductListComponent {
+// export class ProductListComponent {
+    //we're adding a Lifecycle Hook here...
+export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
-    imageMargin: number = 50;
+    imageMargin: number = 2;
     pageTitle: string = 'Schproduct List';
     showImage: boolean = false;
-    products: any[] = [
+    listFilter: string = 'cart';
+
+    
+    //used to be of type "any", but we made an _interface_ to define the products property type.
+
+    // products: any[] = [
+    products: IProduct[] = [
         {
             "productId": 1,
             "productName": "Leaf Rake",
@@ -64,7 +73,11 @@ export class ProductListComponent {
         }
     ];
 
-    toggleImage() {
+    toggleImage(): void {
         this.showImage = !this.showImage;
+    }
+
+    ngOnInit(): void {
+        console.log(`We are inside of ngOnInit()!`)
     }
 }
