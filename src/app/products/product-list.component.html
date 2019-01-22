@@ -39,14 +39,18 @@
                         <td>
                             <img *ngIf='showImage'
                             [src]='product.imageUrl'
-                                 [title]='product.productName'
+                                 [title]='product.productName | uppercase'
                                  [style.width.px]='imageWidth'
                                  [style.margin.px]='imageMargin' />
                         </td>
                         <td>{{product.productName}}</td>
+
+                        <!-- use a "pipe" here - ` | lowercase` -->
                         <td>{{product.productCode | lowercase | convertToSpaces:'-'}}</td>
                         <td>{{product.releaseDate}}</td>
+                        <!-- This pipe (currency) takes parameters! Can look for how to use each in documentation-->
                         <!-- <td>{{product.price | currency: 'USD' : 'symbol' :'1.2-2'}}</td> -->
+                        <!-- <td>{{product.price | currency:'GBP':'symbol':'1.2-2'}}</td> -->
                         <td>{{product.price | currency }}</td>
                         <td>{{product.starRating}}</td>
                     </tr>
