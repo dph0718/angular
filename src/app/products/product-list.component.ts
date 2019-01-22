@@ -4,22 +4,42 @@ import { IProduct } from './product';
 @Component({
     selector: 'pm-products',
     templateUrl: './product-list.component.html',
+    // styleUrls is an array, can accept multiple css files
     styleUrls: ['./product-list.component.css']
 })
 
 // export class ProductListComponent {
     //we're adding a Lifecycle Hook here...
+    // 3 most common: OnInit (like componentDidMount())
+    // OnChages: like willReceveProps or 
+    //OnDestroy: like willUnmount, right before Angular destroys component
+    ///These GOTS to be imported! from @angular/core
+    // AND defined later (keep scrollin) in the component class.
 export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     pageTitle: string = 'Schproduct List';
     showImage: boolean = false;
-    listFilter: string = 'cart';
+    // listFilter: string = 'cart';
+    //change the listFilter property to a getter and setter...
+
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+    }
 
     
+    filteredProducts: IProduct[];
+
     //used to be of type "any", but we made an _interface_ to define the products property type.
 
     // products: any[] = [
+        // IProduct is an "Interface" - like a custom data type. 
+        //imported above
     products: IProduct[] = [
         {
             "productId": 1,
@@ -73,6 +93,19 @@ export class ProductListComponent implements OnInit {
         }
     ];
 
+    // a function executed when component is first initialized
+    // why here? to define default values for ...
+    constructor() {
+        this.filteredProducts = this.products;
+        this.listFilter = 'cart'
+    }
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.products.filter((product: IProduct) => 
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
+
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
@@ -80,4 +113,5 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         console.log(`We are inside of ngOnInit()!`)
     }
+
 }
