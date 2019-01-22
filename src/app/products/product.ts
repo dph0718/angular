@@ -3,6 +3,7 @@
 //angular component properties that don't
 //fall into the number, boolean, string, Date data-types
 
+//They get compiled OUT!! Dev time only!
 
 //interface titles begin with "I", as convention
 export interface IProduct {
@@ -14,6 +15,7 @@ export interface IProduct {
     description: string,
     price: number,
     starRating: number,
-    imageUrl: string
+    imageUrl: string,
+    //methods attached to this "interface" have some more stuff.
 
 }

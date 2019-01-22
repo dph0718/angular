@@ -35,7 +35,9 @@
                 </thead>
                 
                 <tbody>
-                    <tr *ngFor='let product of products'>
+                    <!-- <tr *ngFor='let product of products'> -->
+                        <!-- changed this to display the filteredProducts array from the component. -->
+                    <tr *ngFor='let product of filteredProducts'>
                         <td>
                             <img *ngIf='showImage'
                             [src]='product.imageUrl'
@@ -46,6 +48,7 @@
                         <td>{{product.productName}}</td>
 
                         <!-- use a "pipe" here - ` | lowercase` -->
+                        <!-- ALSO, a CUSTOM pipe! concertToSpaces, imported  -->
                         <td>{{product.productCode | lowercase | convertToSpaces:'-'}}</td>
                         <td>{{product.releaseDate}}</td>
                         <!-- This pipe (currency) takes parameters! Can look for how to use each in documentation-->
